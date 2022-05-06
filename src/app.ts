@@ -4,6 +4,7 @@ import morgan from 'morgan';
 import "reflect-metadata";
 // Routes import
 import ServiceRouter from './routes/service.routes';
+import TechnicalRouter from './routes/technical.routes';
 
 
 const app = express();
@@ -18,5 +19,6 @@ app.use(express.json());
 
 // Routes
 app.use(ServiceRouter);
+app.use(TechnicalRouter);
 
 export default app;
