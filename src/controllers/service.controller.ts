@@ -9,10 +9,16 @@ interface ServiceBody {
 export const getServices = async (req: Request, res: Response) => {
     try {
         const services = await Service.find();
-        return res.json(services);
+        return res.status(200).json({
+            status: 200,
+            data: services
+        });
     } catch (error) {
         if (error instanceof Error) {
-            return res.status(500).json({ message: error.message });
+            return res.status(500).json({
+                message: error.message,
+                status: 500
+            });
         }
     }
 };
@@ -22,12 +28,21 @@ export const getService = async (req: Request, res: Response) => {
         const { id } = req.params;
         const service = await Service.findOneBy({ id: parseInt(id) });
 
-        if (!service) return res.status(404).json({ message: "Service not found" });
+        if (!service) return res.status(404).json({
+            status: 404,
+            message: "Not service found."
+        });
 
-        return res.json(service);
+        return res.status(200).json({
+            status: 200,
+            data: service
+        });
     } catch (error) {
         if (error instanceof Error) {
-            return res.status(500).json({ message: error.message });
+            return res.status(500).json({
+                message: error.message,
+                status: 500
+            });
         }
     }
 };
@@ -41,7 +56,10 @@ export const createService = async (
     service.name = name;
     service.status = status;
     await service.save();
-    return res.json(service);
+    return res.status(200).json({
+        status: 200,
+        data: service
+    });
 };
 
 export const updateService = async (req: Request, res: Response) => {
@@ -49,14 +67,23 @@ export const updateService = async (req: Request, res: Response) => {
 
     try {
         const service = await Service.findOneBy({ id: parseInt(id) });
-        if (!service) return res.status(404).json({ message: "Not user found" });
+        if (!service) return res.status(404).json({
+            status: 404,
+            message: "Not service found."
+        });
 
         await Service.update({ id: parseInt(id) }, req.body);
 
-        return res.sendStatus(204);
+        return res.status(200).json({
+            status: 200,
+            message: "Service updated successfully."
+        });
     } catch (error) {
         if (error instanceof Error) {
-            return res.status(500).json({ message: error.message });
+            return res.status(500).json({
+                message: error.message,
+                status: 500
+            });
         }
     }
 };
@@ -67,16 +94,26 @@ export const activeService = async (req: Request, res: Response) => {
 
     try {
         const service = await Service.findOneBy({ id: parseInt(id) });
-        if (!service) return res.status(404).json({ message: "Not user found" });
+        if (!service) return res.status(404).json({
+            status: 404,
+            message: "Not service found."
+        });
+
         await Service.update(
             { id: parseInt(id) },
             { status: 1 }
         );
 
-        return res.sendStatus(204);
+        return res.status(200).json({
+            status: 200,
+            message: "Service active successfully."
+        });
     } catch (error) {
         if (error instanceof Error) {
-            return res.status(500).json({ message: error.message });
+            return res.status(500).json({
+                message: error.message,
+                status: 500
+            });
         }
     }
 };
@@ -86,16 +123,25 @@ export const deactiveService = async (req: Request, res: Response) => {
 
     try {
         const service = await Service.findOneBy({ id: parseInt(id) });
-        if (!service) return res.status(404).json({ message: "Not user found" });
+        if (!service) return res.status(404).json({
+            status: 404,
+            message: "Not service found."
+        });
         await Service.update(
             { id: parseInt(id) },
             { status: 0 }
         );
 
-        return res.sendStatus(204);
+        return res.status(200).json({
+            status: 200,
+            message: "Service desactive successfully."
+        });
     } catch (error) {
         if (error instanceof Error) {
-            return res.status(500).json({ message: error.message });
+            return res.status(500).json({
+                message: error.message,
+                status: 500
+            });
         }
     }
 };
@@ -107,12 +153,21 @@ export const deleteService = async (req: Request, res: Response) => {
         const result = await Service.delete({ id: parseInt(id) });
 
         if (result.affected === 0)
-            return res.status(404).json({ message: "User not found" });
+            return res.status(404).json({
+                status: 404,
+                message: "Not service found."
+            });
 
-        return res.sendStatus(204);
+        return res.status(200).json({
+            status: 200,
+            message: "Service delete successfully."
+        });
     } catch (error) {
         if (error instanceof Error) {
-            return res.status(500).json({ message: error.message });
+            return res.status(500).json({
+                message: error.message,
+                status: 500
+            });
         }
     }
 };
