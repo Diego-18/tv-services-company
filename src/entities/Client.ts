@@ -1,28 +1,7 @@
-import { BaseEntity, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { Entity } from 'typeorm';
+import { Person } from './Person';
 
 @Entity()
-export class Client extends BaseEntity {
-    @PrimaryGeneratedColumn()
-    id: number;
+export class Client extends Person {
 
-    @Column("varchar", {length: 50})
-    firstName: string;
-
-    @Column("varchar", { length: 50 })
-    lastName: string;
-
-    @Column()
-    email: string;
-
-    @Column("varchar", { length: 15 })
-    phone: string;
-
-    @Column("int", { default: 1 })
-    status: number;
-
-    @CreateDateColumn()
-    createdAt: Date;
-
-    @UpdateDateColumn()
-    updatedAt: Date;
 }
