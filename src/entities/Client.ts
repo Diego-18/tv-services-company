@@ -5,19 +5,19 @@ export class Client extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
+    @Column("varchar", {length: 50})
     firstName: string;
 
-    @Column()
+    @Column("varchar", { length: 50 })
     lastName: string;
 
     @Column()
     email: string;
 
-    @Column()
+    @Column("varchar", { length: 15 })
     phone: string;
 
-    @Column()
+    @Column("int", { default: 1 })
     status: number;
 
     @CreateDateColumn()

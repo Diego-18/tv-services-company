@@ -8,7 +8,7 @@ export class Service extends BaseEntity {
     @Column()
     name: string;
 
-    @Column()
+    @Column("int", { default: 1 })
     status: number;
 
     @CreateDateColumn()
