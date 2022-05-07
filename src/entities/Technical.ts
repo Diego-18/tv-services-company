@@ -1,5 +1,6 @@
-import { Column, Entity } from 'typeorm';
+import { Column, Entity, OneToMany } from 'typeorm';
 import { Person } from './Person';
+import { Ticket } from './Ticket';
 
 @Entity()
 export class Technical extends Person {
@@ -8,4 +9,7 @@ export class Technical extends Person {
 
     @Column()
     outsourcing: boolean;
+
+    @OneToMany(() => Ticket, (ticket) => ticket.client)
+    ticket: Ticket[]
 }

@@ -6,15 +6,18 @@ interface TechnicalBody {
     lastName: string,
     email: string,
     phone: string,
+    yearsService: number,
+    outsourcing: boolean,
     status: number
 }
 
 export const getTechnicals = async (req: Request, res: Response) => {
     try {
-        const Technicals = await Technical.find();
+        const [AllTechnicals, technicalsCount] = await Technical.findAndCount();
         return res.status(200).json({
             status: 200,
-            data: Technicals
+            total: technicalsCount,
+            data: AllTechnicals
         });
     } catch (error) {
         if (error instanceof Error) {
@@ -54,12 +57,29 @@ export const createTechnical = async (
     req: Request<unknown, unknown, TechnicalBody>,
     res: Response
 ) => {
-    const { firstName, lastName, email, phone, status } = req.body;
+    const { firstName, lastName, email, phone, yearsService, outsourcing, status } = req.body;
     const technical = new Technical();
+
+    if (firstName === "") {
+        return res.status(400).json({
+            status: 400,
+            message: "Name of Technical is required."
+        });
+    }
+
+    if (lastName === "") {
+        return res.status(400).json({
+            status: 400,
+            message: "Last Name of Technical is required."
+        });
+    }
+
     technical.firstName = firstName;
     technical.lastName = lastName;
     technical.email = email;
     technical.phone = phone;
+    technical.yearsService = yearsService;
+    technical.outsourcing = outsourcing;
     technical.status = status;
     await technical.save();
     return res.status(200).json({
