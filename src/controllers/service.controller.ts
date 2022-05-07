@@ -8,10 +8,11 @@ interface ServiceBody {
 
 export const getServices = async (req: Request, res: Response) => {
     try {
-        const services = await Service.find();
+        const [AllServices, servicesCount] = await Service.findAndCount();
         return res.status(200).json({
             status: 200,
-            data: services
+            total: servicesCount,
+            data: AllServices
         });
     } catch (error) {
         if (error instanceof Error) {
@@ -53,8 +54,16 @@ export const createService = async (
 ) => {
     const { name, status } = req.body;
     const service = new Service();
+
+    if (name === "") {
+        return res.status(400).json({
+            status: 400,
+            message: "Service name is required."
+        });
+    }
+
     service.name = name;
-    service.status = status;
+
     await service.save();
     return res.status(200).json({
         status: 200,
@@ -71,6 +80,13 @@ export const updateService = async (req: Request, res: Response) => {
             status: 404,
             message: "Not service found."
         });
+
+        if (req.body.name === "") {
+            return res.status(400).json({
+                status: 400,
+                message: "Service name is required."
+            });
+        }
 
         await Service.update({ id: parseInt(id) }, req.body);
 
