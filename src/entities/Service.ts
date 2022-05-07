@@ -1,14 +1,15 @@
-import { BaseEntity, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { BaseEntity, Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { Ticket } from './Ticket';
 
 @Entity()
 export class Service extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
+    @Column({ nullable: false })
     name: string;
 
-    @Column("int", { default: 1 })
+    @Column("int", { default: 1, nullable: false })
     status: number;
 
     @CreateDateColumn()
@@ -16,4 +17,7 @@ export class Service extends BaseEntity {
 
     @UpdateDateColumn()
     updatedAt: Date;
+
+    @OneToMany(() => Ticket, (ticket) => ticket.service)
+    ticket: Ticket[]
 }
