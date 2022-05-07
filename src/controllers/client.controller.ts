@@ -11,10 +11,11 @@ interface ClientBody {
 
 export const getClients = async (req: Request, res: Response) => {
     try {
-        const clients = await Client.find();
+        const [AllClients, clientsCount] = await Client.findAndCount();
         return res.status(200).json({
             status: 200,
-            data: clients
+            total: clientsCount,
+            data: AllClients
         });
     } catch (error) {
         if (error instanceof Error) {
@@ -56,6 +57,21 @@ export const createClient = async (
 ) => {
     const { firstName, lastName, email, phone, status } = req.body;
     const client = new Client();
+
+    if (firstName === "") {
+        return res.status(400).json({
+            status: 400,
+            message: "Name of Client is required."
+        });
+    }
+
+    if (lastName === "") {
+        return res.status(400).json({
+            status: 400,
+            message: "Last Name of Client is required."
+        });
+    }
+
     client.firstName = firstName;
     client.lastName = lastName;
     client.email = email;
