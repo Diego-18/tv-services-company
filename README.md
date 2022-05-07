@@ -23,11 +23,17 @@ npm build
 npm start
 ```
 
-6 - To access the data we place the following addresses in our browser:
+6 - To access the data we place the following addresses in our browser.
 
-Information that can be managed from ![Postman](https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white)
+## Functionality
 
-### Services
+Here you can find information about how the api works and which are the required fields for its operation.
+
+To visualize the api operation it is necessary to use postman, thunder Client or any tool to make requests.
+
+![Postman](https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white)
+
+### Services Collections
 ```
 GET     http://localhost:5000/services                    //Bring all records
 
@@ -42,7 +48,17 @@ PUT     http://localhost:5000/services-deact/{id}         // Desactived record e
 DELETE  http://localhost:5000/services/{id}               // Delete record existing
 ```
 
-### Technicals
+In order to manage the **services** we need to send you the following **params**:
+
+
+~~~
+{
+    "name": "example" (string - required)
+}
+~~~
+
+
+### Technicals Collections
 ```
 GET     http://localhost:5000/technicals             //Bring all records
 
@@ -57,7 +73,22 @@ PUT     http://localhost:5000/technicals-deact/{id}         // Desactived record
 DELETE  http://localhost:5000/technicals/{id}         // Delete record existing
 ```
 
-### Clients
+In order to manage the **technicians** we need to send you the following **params**:
+
+~~~
+{
+    "firstName": "example"          (string - required)
+    "lastName": "example"           (string - required)
+    "email": "example@example.com"  (string - opcional)
+    "phone": "+57 123456789"        (string - opcional)
+    "yearsService": 1               (int - required)
+    "outsourcing": true             (boolean - required)
+}
+~~~
+
+
+
+### Clients Collections
 ```
 GET     http://localhost:5000/clients             //Bring all records
 
@@ -71,6 +102,38 @@ PUT     http://localhost:5000/clients-deact/{id}         // Desactived record ex
 
 DELETE  http://localhost:5000/clients/{id}         // Delete record existing
 ```
+
+In order to manage the **clients** we need to send you the following **params**:
+
+~~~
+{
+    "firstName": "example"          (string - required)
+    "lastName": "example"           (string - required)
+    "email": "example@example.com"  (string - opcional)
+    "phone": "+57 123456789"        (string - opcional)
+}
+~~~
+
+### Tickets Collections
+```
+GET     http://localhost:5000/tickets             //Bring all records
+
+POST    http://localhost:5000/tickets              // Create new records
+
+PUT     http://localhost:5000/tickets/{id}         // Update record existing
+
+DELETE  http://localhost:5000/tickets/{id}         // Delete record existing
+```
+In order to manage the **ticket** we need to send you the following **params**:
+
+~~~
+{
+    "client": 1                     (int - required)
+    "service": 1                    (int - required)
+    "description": "example"        (string - required)
+}
+~~~
+
 
 ## Technologies used
 
