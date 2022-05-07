@@ -25,6 +25,9 @@ npm start
 
 6 - To access the data we place the following addresses in our browser.
 
+## Data Base
+The documentation of the creation of the database and diagrams of the same, can be found in the **data** directory of the same project.
+
 ## Functionality
 
 Here you can find information about how the api works and which are the required fields for its operation.
