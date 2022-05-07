@@ -2,10 +2,12 @@ import cors from 'cors';
 import express from 'express';
 import morgan from 'morgan';
 import "reflect-metadata";
-import ClientRouter from './routes/client.routes';
 // Routes import
+import ClientRouter from './routes/client.routes';
 import ServiceRouter from './routes/service.routes';
 import TechnicalRouter from './routes/technical.routes';
+import TicketRouter from './routes/ticket.routes';
+
 
 
 const app = express();
@@ -19,6 +21,6 @@ app.use(morgan('dev'));
 app.use(express.json());
 
 // Routes
-app.use(ServiceRouter, TechnicalRouter, ClientRouter);
+app.use(ServiceRouter, TechnicalRouter, ClientRouter, TicketRouter);
 
 export default app;
